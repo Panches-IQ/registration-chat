@@ -1,2 +1,2 @@
-h1 React Node.js Express application
+React Node.js Express messenger application
 ====================================
