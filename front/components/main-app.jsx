@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Header from './header.jsx'
 
 class MainApp extends Component {
 
@@ -8,8 +9,8 @@ class MainApp extends Component {
 
 	render() {
 		return (
-			<div className='mainWrapper'>
-				<h2>Messenger chat demo application</h2>
+			<div className='main-wrapper'>
+				<Header />
 			</div>
 		);
 	}
