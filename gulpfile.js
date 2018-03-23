@@ -13,7 +13,7 @@ const concat = require('gulp-concat')
 
 gulp.task('js', function() {
 	const config = clone(webpackConfig);
-	return gulp.src('./front/*.jsx')
+	return gulp.src('./front/**/*.{jsx,js}')
 			.pipe(webpack(config))
 			.pipe(gulp.dest('./public'));
 });

@@ -20,7 +20,7 @@ class App extends Component {
 			<div className='main-wrapper'>
 				<Router history={history}>
 					<div>
-						<Link to="/"><input className="btn btn-primary col-md" type="button" value="HOME"></input></Link>
+						<Link to="/"><input className="btn btn-primary mx-md-5" type="button" value="HOME"></input></Link>
 						<Link to="/login">LOGIN</Link>
 						<hr/>
 						<Route exact path="/" component={Header} />
