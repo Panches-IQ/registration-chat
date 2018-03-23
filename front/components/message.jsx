@@ -7,10 +7,12 @@ class Message extends Component {
 	}
 
 	render() {
-		var content = this.props.content ? this.props.content : "n/a";
+		var props = this.props;
 		return (
 			<div className='message-wrapper'>
-				<h3>{content}</h3>
+				<h3>{props.title}</h3>
+				<div> Created by: {props.user}</div>
+				<div> {props.text} </div>
 			</div>
 		);
 	}

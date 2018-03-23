@@ -19,7 +19,7 @@ gulp.task('js', function() {
 });
 
 gulp.task('css', function() {
-	return gulp.src('./front/**/*.less')
+	return gulp.src('./front/**/*.{less,css}')
 			.pipe(less())
 			.pipe(autoprefixer())
 			.pipe(concat('bundle.css'))
