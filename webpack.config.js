@@ -11,11 +11,11 @@ module.exports = {
 	entry: APP_DIR + "/index.jsx",
 
 	plugins: [
-		new webpack.optimize.UglifyJsPlugin({
-			compress: {
-				warnings: false
-			}
-    	})
+		// new webpack.optimize.UglifyJsPlugin({
+		// 	compress: {
+		// 		warnings: false
+		// 	}
+		// })
 	],
 	
 	module: {
