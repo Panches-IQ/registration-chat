@@ -21,18 +21,17 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /.js?/,
+				test: /\.js?/,
 				exclude: /node_modules/,
-				use: 
-				[
-					'babel-loader',
-					{
-						loader: 'babel-loader',
-						options: {
-							presets: ['env', 'react']
-						}
-					}
-				]
+				loader: 'babel-loader',
+				options: {
+					presets: ['env', 'react']
+				}				
+			},
+			{
+				test: /\.json?/,
+				exclude: /node_modules/,
+				loader: 'json-loader'
 			}
 		]
 	},

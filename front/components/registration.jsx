@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Header extends Component {
+class Registration extends Component {
 
 	constructor(props) {
 		super(props);
@@ -9,10 +9,10 @@ class Header extends Component {
 	render() {
 		return (
 			<div className='navbar-nav navbar-text'>
-				<h2>Messenger chat demo application!</h2>
+				<h2>Registration Form</h2>
 			</div>
 		);
 	}
 }
 
-export default Header;
+export default Registration;

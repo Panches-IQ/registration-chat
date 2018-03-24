@@ -1,0 +1,17 @@
+{
+	"client": {
+		"messagesApiPrefix":"https://jsonplaceholder.typicode.com/posts",
+		"usersApiPrefix":"https://jsonplaceholder.typicode.com/users",
+		"apiPort":1337
+	},
+	"dbUsers":{
+		"name":"users"
+	},
+	"dbMessages":{
+		"name":"messages"
+	},
+	"dbMain":{
+		"host":"127.0.0.1",
+		"port":27017
+	}
+}

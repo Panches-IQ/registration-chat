@@ -23,7 +23,7 @@ gulp.task('css', function() {
 			.pipe(less())
 			.pipe(autoprefixer())
 			.pipe(concat('bundle.css'))
-			.pipe(uglifyCSS())
+			// .pipe(uglifyCSS())
 			.pipe(gulp.dest('./public'));
 });
 
