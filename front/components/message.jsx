@@ -9,10 +9,10 @@ class Message extends Component {
 	render() {
 		var props = this.props;
 		return (
-			<div className='message-wrapper'>
-				<h3>{props.title}</h3>
+			<div className='jumbotron'>
+				<h3 className='display-8'>{props.title}</h3>
 				<div> Created by: {props.user}</div>
-				<div> {props.text} </div>
+				<div className='list-group-item'> {props.text} </div>
 			</div>
 		);
 	}

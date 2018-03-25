@@ -17,7 +17,6 @@ class MessagesList extends Component {
 	}
 
 	render() {
-		console.log(this.props)
 		var body = this.props.messages ? 
 			this.props.messages.map((item) => (
 				<Message
@@ -30,7 +29,7 @@ class MessagesList extends Component {
 			))
 			: "Start typing your messages";
 		return (
-			<div className="navbar-nav navbar-text">
+			<div className="container">
 				{body}
 			</div>
 		);

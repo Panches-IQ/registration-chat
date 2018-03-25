@@ -1,16 +1,19 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import config from '../utils/config.json';
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const config = require('../utils/config.json');
+const cookieParser = require('cookie-parser');
 
 const app = express();
-const port = config ? config.client.apiPort : 1337;
+const port = config ? config.client.apiPort : 1339;
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
+app.use(cookieParser());
 app.use(cors({ origin: '*' }));
 
 app.get('/', (req,res) => {
+	// console.log(req.cookies, res.cookies);
 	// res.redirect('/base');
 	res.json({reply:"get/"})
 });
