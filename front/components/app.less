@@ -1,4 +1,5 @@
 @backgroundColor: #D4E4FF;
+
 .main-wrapper {
 	background-color: @backgroundColor;
 	width: 80%;
@@ -6,7 +7,26 @@
 	margin: auto;
 	overflow: auto;
 }
+
 .messages-wrapper {
 	height: 60vh;
 	overflow: auto;
+}
+
+.nav {
+	display: flex;
+}
+
+.nav li {
+	margin-right: 15px;
+}
+
+.nav-active {
+	font-weight: 900;
+}
+
+.nav a,
+.nav a:hover {
+	text-decoration: none;
+	color: #D0021B;
 }

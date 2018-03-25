@@ -3,6 +3,7 @@ import { Router, Route, Link } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import api from '../api/api';
 import config from '../../utils/config.json';
+import NavBar from './navbar.jsx';
 
 // Components
 import Header from './header.jsx';
@@ -33,9 +34,7 @@ class App extends Component {
 			<div className="main-wrapper">
 				<Router history={history}>
 					<div>
-						<Link to="/"><input className="btn btn-primary mx-md-5" type="button" value="HOME"></input></Link>
-						<Link to="/login"><input className="btn btn-primary mx-md-5" type="button" value="LOGIN"></input></Link>
-						<Link to="/register"><input className="btn btn-primary mx-md-5" type="button" value="REGISTER"></input></Link>
+						<NavBar />
 						<hr/>
 						<Header />
 						<hr/>
