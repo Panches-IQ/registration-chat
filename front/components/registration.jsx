@@ -6,10 +6,19 @@ class Registration extends Component {
 		super(props);
 	}
 
+	componentDidMount() {
+        console.log('registration => componentDidMount:', this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log('registration => componentWillReceiveProps:', nextProps);
+    }
+
+
 	render() {
 		return (
-			<div className='navbar-nav navbar-text'>
-				<h2>Registration Form</h2>
+			<div className=''>
+				Registration
 			</div>
 		);
 	}

@@ -1,0 +1,110 @@
+@backgroundColor: #F4F4F5;
+@marginRightLeft: 20px;
+
+.main-container {
+	background-color: @backgroundColor;
+	width: 80%;
+	height: 96%;
+	margin: auto;
+	overflow: auto;
+}
+
+.header-wrapper {
+	border: none;
+	text-align: center;
+	margin-bottom: 10px;
+	color: midnightblue;
+}
+
+.messages-list-wrapper {
+	height: 60vh;
+	overflow: auto;
+}
+
+.message-wrapper {
+	border: 1px solid lightblue;
+	border-radius: 3px;
+	margin: 5px;
+	margin-left: auto;
+	width: 80%;
+	background-color: #FFFFEE;
+	padding: 5px;
+}
+
+.message-wrapper.message-own {
+	margin-left: 0px;
+	background-color: white;
+}
+
+.message-creator {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.nav {
+	display: flex;
+}
+
+.nav li {
+	margin: 15px 15px 5px 20px;
+}
+
+.nav-active {
+	font-weight: 900;
+}
+
+.nav a,
+.nav a:hover {
+	text-decoration: none;
+	color: #D0021B;
+}
+
+.nav li.nav-right-align {
+	margin-left: auto;
+	margin-right: @marginRightLeft;
+}
+
+.messages-list-empty,
+.post-message-unregistered {
+	margin: 20px @marginRightLeft;
+	color: midnightblue;
+	font-size: 18px;
+}
+
+.post-message-registered {
+	margin: 20px @marginRightLeft;
+	textarea {
+		border: 1px solid indianred;
+		border-radius: 2px;
+		width: 100%;
+		min-height: 100px;
+		resize: none;
+		padding: 5px;
+	}
+	textarea:focus {
+		border-color: indianred;
+		outline: none;
+		box-shadow: 0px 0px 1px 0px indianred;
+	}
+	input[type='submit'] {
+		color: indianred;
+		border: 1px solid indianred;
+		font-weight: bold;
+		margin: 20px 0px;
+		float: right;
+	}
+	input[type='submit'].btn-outline-primary:hover,
+	input[type='submit'].btn-outline-primary:active {
+		background-color: indianred;
+		color: white;
+	}
+	input[type='submit'].btn-outline-primary:focus,
+	input[type='submit'].btn-outline-primary:active {
+		box-shadow: none;	
+	}
+}
+
+hr {
+	margin: 10px @marginRightLeft;
+	background-color: indianred;
+}

@@ -1,21 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Message extends Component {
+const Message = (props) => {
+	const messageClassName = 'message-wrapper' + (props.user%2 ? ' message-own' : '');
 
-	constructor(props) {
-		super(props);
-	}
-
-	render() {
-		var props = this.props;
-		return (
-			<div className='jumbotron'>
-				<h3 className='display-8'>{props.title}</h3>
-				<div> Created by: {props.user}</div>
-				<div className='list-group-item'> {props.text} </div>
-			</div>
-		);
-	}
+	return (
+		<div className={messageClassName}>
+			<div className='message-creator'> Created by: {props.user}</div>
+			<div className='message-text'> {props.text} </div>
+		</div>
+	);
 }
 
 export default Message;

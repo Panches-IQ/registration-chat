@@ -1,22 +1,25 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import React from 'react';
+import { NavLink, Link } from 'react-router-dom';
 
 const active = 'nav-active';
 
-class Navbar extends Component {
-
-	constructor (props) {
-		super(props);
-
-		this.state = {
-			registered: false
-		}
-	}	
-
-	render() {
-		const logged = this.state.registered;
-
-		return (
+const Navbar = (props) => {
+	const username = props.username;
+	const registerField = username 
+		? (
+			<Link className={active + ' user-field'} to={'/userinfo?username='+username}>
+				{ username }
+			</Link>
+		)
+		: (
+			<NavLink exact activeClassName={active} to={'/register'}>
+				REGISTER
+			</NavLink>
+		);
+	const registerClassname = username ? 'nav-right-align' : '';
+	
+	return (
+		<div className='nav-wrapper'>
 			<ul className='nav'>
 				<li>
 					<NavLink exact activeClassName={active} to='/'>
@@ -24,18 +27,16 @@ class Navbar extends Component {
 					</NavLink>
 				</li>
 				<li>
-					<NavLink exact activeClassName={active} to={logged ? '/' : '/register'}>
-						{logged ? 'Welcome '+this.props.username : 'REGISTER'}
+					<NavLink exact activeClassName={active} to={username ? '/logout' : '/login'}>
+						{username ? 'LOGOUT' : 'LOGIN'}
 					</NavLink>
 				</li>
-				<li>
-					<NavLink exact activeClassName={active} to={logged ? '/logout' : '/login'}>
-						{logged ? 'LOGOUT' : 'LOGIN'}
-					</NavLink>
+				<li className={registerClassname}>
+					{registerField}
 				</li>
 			</ul>
-		);
-	}
+		</div>
+	);
 };
 
 export default Navbar;

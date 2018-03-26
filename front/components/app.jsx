@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { Router, Route, Link } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
-import api from '../api/api';
-import config from '../../utils/config.json';
-import NavBar from './navbar.jsx';
 
 // Components
+import NavBar from './navbar.jsx';
 import Header from './header.jsx';
 import MessagesList from './messages-list.jsx';
 import Registration from './registration.jsx';
+import Login from './login.jsx';
+import PostMessage from './post-message.jsx';
 
 const history = createBrowserHistory();
 
@@ -16,34 +16,26 @@ class App extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			messages:[],
-			username: null
-		}
-	}
 
-	componentDidMount() {
-		api.getCollection(config.client.messagesApiPrefix)
-			.then(res => {
-				if (res.data) this.setState({ messages:res.data });
-			});
+		this.state = {
+			username: null
+			// username: 'Pavel'
+		}
 	}
 
 	render() {
 		return (
-			<div className="main-wrapper">
+			<div className="main-container">
 				<Router history={history}>
 					<div>
-						<NavBar />
+						<NavBar username={this.state.username} />
 						<hr/>
-						<Header />
-						<hr/>
-						<Route exact path="/">
-							<div className="messages-wrapper">
-								<MessagesList user={this.state.username} messages={this.state.messages} />
-							</div>
-						</Route>
-						<Route path="/register" component={Registration} />
+						<Header username={this.state.username} />
+						<Route exact path='/' render={props => (<MessagesList username={this.state.username} />)} />
+						<Route exact path='/register' render={props => (<Registration username={this.state.username} />)} />
+						<Route exact path='/login' render={props => (<Login username={this.state.username} />)} />
+						<hr />
+						<Route exact path='/' render={props => (<PostMessage username={this.state.username} />)} />
 					</div>
 				</Router>
 			</div>
