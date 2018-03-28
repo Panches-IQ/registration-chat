@@ -10,17 +10,37 @@ import Registration from './registration.jsx';
 import Login from './login.jsx';
 import PostMessage from './post-message.jsx';
 
+// Controllers
+import dataStore from '../controllers/data-store';
+import apiActions from '../controllers/api-actions';
+
 const history = createBrowserHistory();
+
+const getStateFromFlux = function() {
+	return {
+		username: dataStore.getUsername(),
+		isLoading: dataStore.isLoading(),
+		messages: dataStore.getMessages()
+	}
+}
 
 class App extends Component {
 
 	constructor(props) {
 		super(props);
+		this.state = getStateFromFlux();
+	}
 
-		this.state = {
-			username: null
-			// username: 'Pavel'
-		}
+	componentWillMount() {
+		apiActions.loadMessages();
+	}
+
+	componentDidMount() {
+
+	}
+
+	componentWillUnmount() {
+
 	}
 
 	render() {
@@ -40,6 +60,10 @@ class App extends Component {
 				</Router>
 			</div>
 		);
+	}
+
+	_onChange() {
+		this.setState(getStateFromFlux());
 	}
 }
 

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import dataStore from '../stores/data-store';
 
 // Components
 import Message from './message.jsx';
@@ -14,18 +13,10 @@ class MessagesList extends Component {
 			messages: []
 		}
 		console.log(props)
-		console.log(dataStore);
 	}
 
 	componentDidMount() {
-		dataStore.getMessages()
-			.then(resp => {
-				this.setState({ messages: resp.data })
-			})
-			.catch(e => {
-				this.setState({ messages: [] })
-			})
-        console.log('message-list => componentDidMount:', this.state);
+		console.log('message-list => componentDidMount:', this.props);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -35,7 +26,7 @@ class MessagesList extends Component {
     shouldComponentUpdate() {
     	console.log('message-list => shouldComponentUpdate:', this.state);
     	return true;
-    }
+    }    
 
 	render() {
 		var body = this.state.messages.length ? 
