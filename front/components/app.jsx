@@ -12,7 +12,7 @@ import PostMessage from './post-message.jsx';
 
 // Controllers
 import dataStore from '../controllers/data-store';
-import apiActions from '../controllers/api-actions';
+import dataActions from '../controllers/data-actions';
 
 const history = createBrowserHistory();
 
@@ -20,7 +20,8 @@ const getStateFromFlux = function() {
 	return {
 		username: dataStore.getUsername(),
 		isLoading: dataStore.isLoading(),
-		messages: dataStore.getMessages()
+		messages: dataStore.getMessages(),
+		error: dataStore.getLoadingError()
 	}
 }
 
@@ -29,18 +30,20 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = getStateFromFlux();
+
+		this._onChange = this._onChange.bind(this);
 	}
 
 	componentWillMount() {
-		apiActions.loadMessages();
+		dataActions.loadMessages();
 	}
 
 	componentDidMount() {
-
+		dataStore.addChangeListener(this._onChange);
 	}
 
 	componentWillUnmount() {
-
+		dataStore.removeChangeListener(this._onChange);
 	}
 
 	render() {
@@ -51,7 +54,7 @@ class App extends Component {
 						<NavBar username={this.state.username} />
 						<hr/>
 						<Header username={this.state.username} />
-						<Route exact path='/' render={props => (<MessagesList username={this.state.username} />)} />
+						<Route exact path='/' render={props => (<MessagesList username={this.state.username} messages={this.state.messages} />)} />
 						<Route exact path='/register' render={props => (<Registration username={this.state.username} />)} />
 						<Route exact path='/login' render={props => (<Login username={this.state.username} />)} />
 						<hr />
@@ -62,7 +65,7 @@ class App extends Component {
 		);
 	}
 
-	_onChange() {
+	_onChange() {		
 		this.setState(getStateFromFlux());
 	}
 }

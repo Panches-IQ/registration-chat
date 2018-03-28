@@ -1,8 +1,9 @@
 import axios from 'axios';
+import config from '../../utils/config.json';
 
 const api = {
-	getCollection(remote) {
-		return axios.get(remote, { withCredentials:true });
+	loadMessages() {
+		return axios.get(config.client.messagesApiPrefix, { withCredentials:true });
 	},
 	logIn() {
 
@@ -10,7 +11,7 @@ const api = {
 	logOut() {
 
 	},
-	postMessage(obj) {
+	createMessage(obj) {
 
 	}
 }

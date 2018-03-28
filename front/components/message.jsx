@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Message = (props) => {
-	const messageClassName = 'message-wrapper' + (props.user%2 ? ' message-own' : '');
+	const messageClassName = 'message-wrapper' + (props.user == props.username ? ' message-own' : '');
 
 	return (
 		<div className={messageClassName}>

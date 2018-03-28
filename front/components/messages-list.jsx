@@ -16,11 +16,11 @@ class MessagesList extends Component {
 	}
 
 	componentDidMount() {
-		console.log('message-list => componentDidMount:', this.props);
+		// console.warn('message-list => componentDidMount:', this.props);
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('message-list => componentWillReceiveProps:', nextProps);
+        // console.error('message-list => componentWillReceiveProps:', nextProps);
     }
 
     shouldComponentUpdate() {
@@ -29,13 +29,13 @@ class MessagesList extends Component {
     }    
 
 	render() {
-		var body = this.state.messages.length ? 
-			this.state.messages.map((item) => (
+		var body = this.props.messages.length ? 
+			this.props.messages.map((message) => (
 				<Message
-					key={item.id}
-					text={item.body}
-					title={item.title}
-					user={item.userId}
+					key={message.id}
+					text={message.text}
+					user={message.userId}
+					username={this.props.username}
 				>
 				</Message>
 			))

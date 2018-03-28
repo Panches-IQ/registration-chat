@@ -23,7 +23,7 @@
 
 .message-wrapper {
 	border: 1px solid lightblue;
-	border-radius: 3px;
+	border-radius: 5px;
 	margin: 5px;
 	margin-left: auto;
 	width: 80%;
@@ -71,11 +71,20 @@
 	font-size: 18px;
 }
 
+.login-form {
+	height: 200px;
+}
+
+.post-message-registered input[type='submit'] {
+	float: right;
+}
+
+.login-form,
 .post-message-registered {
 	margin: 20px @marginRightLeft;
 	textarea {
 		border: 1px solid indianred;
-		border-radius: 2px;
+		border-radius: 5px;
 		width: 100%;
 		min-height: 100px;
 		resize: none;
@@ -91,7 +100,7 @@
 		border: 1px solid indianred;
 		font-weight: bold;
 		margin: 20px 0px;
-		float: right;
+		min-width: 100px;		
 	}
 	input[type='submit'].btn-outline-primary:hover,
 	input[type='submit'].btn-outline-primary:active {
@@ -102,6 +111,20 @@
 	input[type='submit'].btn-outline-primary:active {
 		box-shadow: none;	
 	}
+	input[type='text'],
+	input[type='password'] {
+		border-radius: 5px;
+		border: 1px solid indianred;
+		padding: 5px;
+		min-height: 34px;
+		width: 40vw;
+		font-size: 18px;
+		text-align: center;
+	}
+	label {
+		margin-right: auto;
+	}
+	text-align: center;
 }
 
 hr {
