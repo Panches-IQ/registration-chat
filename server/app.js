@@ -22,6 +22,10 @@ app.post('/', (req,res) => {
 	res.json({reply:"post/"})
 });
 
+app.get('/*', (req, res) => {
+    res.redirect('/');
+});
+
 app.listen(port, () => {
 	console.log("Server is running on port " + port);
 });

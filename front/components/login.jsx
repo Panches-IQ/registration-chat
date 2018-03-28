@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 const getInitialState = () => {
     return {
@@ -33,11 +34,11 @@ class Login extends Component {
         const body = (
             <div className='from-group login-form'>
                 <form onSubmit={this.handleSubmit} name='post'>
-                    <label for="username">Username:</label><br />
-                    <input id="username" type="text" name='username' value={this.state.username_field} onChange={this.handleUsername} />
+                    <label>Username:</label><br />
+                    <input type="text" name='username' value={this.state.username_field} onChange={this.handleUsername} />
                     <br />
-                    <label for="password1">Password:</label><br />
-                    <input id="password1" type="password" name='password' value={this.state.password_field} onChange={this.handlePassword} />
+                    <label>Password:</label><br />
+                    <input type="password" name='password' value={this.state.password_field} onChange={this.handlePassword} />
                     <br />
                     <input className='btn btn-outline-primary' type='submit' value='Login' />
                 </form>
@@ -59,8 +60,8 @@ class Login extends Component {
     }
 
     handleSubmit(e) {
-        if (this.checkCredentials())
-            this.setState(getInitialState());
+        // if (this.checkCredentials())
+        this.setState(getInitialState());
         e.preventDefault();
     }
 }

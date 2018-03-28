@@ -7,7 +7,7 @@ class Registration extends Component {
 	}
 
 	componentDidMount() {
-        console.log('registration => componentDidMount:', this.props);
+        console.log('registration => componentDidMount:', this);
     }
 
     componentWillReceiveProps(nextProps) {
