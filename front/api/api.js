@@ -1,14 +1,24 @@
 import axios from 'axios';
 import config from '../../utils/config.json';
 
+const url = config.client.apiPrefix;
+
 const api = {
 	loadMessages() {
-		return axios.get(config.client.messagesApiPrefix, { withCredentials:true });
+		return axios.get('/', { withCredentials:true });
 	},
-	logIn() {
+	login(username, password) {
 
+		let data = {
+	        password: password,
+	        username: username
+	    };
+		return axios.post(
+			'/login', 
+			data
+		);
 	},
-	logOut() {
+	logout() {
 
 	},
 	createMessage(obj) {

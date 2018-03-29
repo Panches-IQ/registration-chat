@@ -32,6 +32,7 @@ class App extends Component {
 		this.state = getStateFromFlux();
 
 		this._onChange = this._onChange.bind(this);
+		this._login = this._login.bind(this);
 	}
 
 	componentWillMount() {
@@ -47,18 +48,21 @@ class App extends Component {
 	}
 
 	render() {
+
+		const { username, messages } = this.state;
+
 		return (
 			<div className="main-container">
 				<Router history={history}>
 					<div>
-						<NavBar username={this.state.username} />
+						<NavBar username={username} />
 						<hr/>
-						<Header username={this.state.username} />
-						<Route exact path='/' render={props => (<MessagesList username={this.state.username} messages={this.state.messages} />)} />
-						<Route exact path='/register' render={props => (<Registration username={this.state.username} />)} />
-						<Route exact path='/login' render={props => (<Login username={this.state.username} />)} />
+						<Header username={username} />
+						<Route exact path='/' render={props => (<MessagesList username={username} messages={messages} />)} />
+						<Route exact path='/register' render={props => (<Registration username={username} />)} />
+						<Route exact path='/login' render={props => (<Login username={username} login={this._login} />)} />
 						<hr />
-						<Route exact path='/' render={props => (<PostMessage username={this.state.username} />)} />
+						<Route exact path='/' render={props => (<PostMessage username={username} />)} />
 					</div>
 				</Router>
 			</div>
@@ -67,6 +71,10 @@ class App extends Component {
 
 	_onChange() {		
 		this.setState(getStateFromFlux());
+	}
+
+	_login(username, password) {
+		dataActions.login(username, password);
 	}
 }
 

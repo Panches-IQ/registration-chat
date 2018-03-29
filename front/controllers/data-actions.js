@@ -21,12 +21,35 @@ const dataActions = {
                     type: 'error',
                     error: err
                 })
-            })
+            });
     },
     createMessage() {
 
     },
     establishConnection() {
+
+    },
+    login(username, password) {
+        Dispatcher.dispatch({
+            type: 'login-request'
+        });
+
+        api.login(username, password)
+            .then(response => {
+                Dispatcher.dispatch({
+                    type: 'login-success',
+                    username: response.username,
+                    status: response.status
+                })
+            })
+            .catch(err => {
+
+            });
+    },
+    register() {
+
+    },
+    logout() {
 
     }
 }

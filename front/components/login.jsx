@@ -8,10 +8,7 @@ const getInitialState = () => {
     return {
         username: '',
         password: '',
-        error: {
-            username: null,
-            password: null
-        }
+        errors: {}
     }
 }
 
@@ -23,6 +20,7 @@ class Login extends Component {
         this.state = getInitialState();
 
         this.onChange = this.onChange.bind(this);
+        this.login = this.login.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -43,7 +41,7 @@ class Login extends Component {
                         label='username / email'
                         name='username'
                         placeholder='username or e-mail'
-                        error={this.state.error.username}
+                        error={this.state.errors.username}
                         onChange={this.onChange}
                         value={this.state.username}
                     />
@@ -52,7 +50,7 @@ class Login extends Component {
                         name='password'
                         label='password'
                         placeholder='password here'
-                        error={this.state.error.password}
+                        error={this.state.errors.password}
                         onChange={this.onChange}
                         value={this.state.password}
                     />
@@ -71,19 +69,22 @@ class Login extends Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
+    login() {
+        const { username, password } = this.state;
+        this.props.login(username, password);
+    }
+
     handleSubmit(e) {
         e.preventDefault();
 
-        const { username, password } = this.state;
-        if (!Validate(username)) {
-            this.setState({ error: {username: 'Username must be at least 4 chars length'}});
-        } else if(!Validate(password)) {
-            this.setState({ error: {password: 'Password must be at least 4 chars length'}});
-        }
-        else {
+        const errors = Validate(this.state);
+
+        if (errors) {
+            this.setState({ errors });
+        } else {
+            this.login();
             this.setState(getInitialState());
         }
-        
     }
 }
 
