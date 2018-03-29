@@ -1,5 +1,22 @@
 import React, { Component } from 'react';
 
+// Components
+import CredentialInput from './credential-input.jsx';
+
+const getInitialState = () => {
+    return {
+        username: '',
+        email: '',
+        password: '',
+        password_confirm: '',
+        error: {
+            username: null,
+            password: null,
+            password_confirm: null
+        }
+    }
+}
+
 class Registration extends Component {
 
 	constructor(props) {

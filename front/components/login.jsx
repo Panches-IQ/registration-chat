@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import Validate from '../../utils/validate';
+
+// Components
+import CredentialInput from './credential-input.jsx';
 
 const getInitialState = () => {
     return {
-        username_field: '',
-        password_field: '',
-        username_error: null,
-        password_error: null
+        username: '',
+        password: '',
+        error: {
+            username: null,
+            password: null
+        }
     }
 }
 
@@ -17,8 +22,7 @@ class Login extends Component {
 
         this.state = getInitialState();
 
-        this.handleUsername = this.handleUsername.bind(this);
-        this.handlePassword = this.handlePassword.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -34,12 +38,24 @@ class Login extends Component {
         const body = (
             <div className='from-group login-form'>
                 <form onSubmit={this.handleSubmit} name='post'>
-                    <label>Username:</label><br />
-                    <input type="text" name='username' value={this.state.username_field} onChange={this.handleUsername} />
-                    <br />
-                    <label>Password:</label><br />
-                    <input type="password" name='password' value={this.state.password_field} onChange={this.handlePassword} />
-                    <br />
+                    <CredentialInput 
+                        type='text'
+                        label='username / email'
+                        name='username'
+                        placeholder='username or e-mail'
+                        error={this.state.error.username}
+                        onChange={this.onChange}
+                        value={this.state.username}
+                    />
+                    <CredentialInput 
+                        type='password'
+                        name='password'
+                        label='password'
+                        placeholder='password here'
+                        error={this.state.error.password}
+                        onChange={this.onChange}
+                        value={this.state.password}
+                    />
                     <input className='btn btn-outline-primary' type='submit' value='Login' />
                 </form>
             </div>
@@ -51,18 +67,23 @@ class Login extends Component {
         );
     }
 
-    handleUsername(e) {
-        this.setState({ username_field: e.target.value });
-    }
-
-    handlePassword(e) {
-        this.setState({ password_field: e.target.value });
+    onChange(e) {
+        this.setState({ [e.target.name]: e.target.value });
     }
 
     handleSubmit(e) {
-        // if (this.checkCredentials())
-        this.setState(getInitialState());
         e.preventDefault();
+
+        const { username, password } = this.state;
+        if (!Validate(username)) {
+            this.setState({ error: {username: 'Username must be at least 4 chars length'}});
+        } else if(!Validate(password)) {
+            this.setState({ error: {password: 'Password must be at least 4 chars length'}});
+        }
+        else {
+            this.setState(getInitialState());
+        }
+        
     }
 }
 
