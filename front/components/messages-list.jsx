@@ -12,7 +12,7 @@ class MessagesList extends Component {
 			updated: false,
 			messages: []
 		}
-		console.log(props)
+		// console.log(props)
 	}
 
 	componentDidMount() {
@@ -24,7 +24,7 @@ class MessagesList extends Component {
     }
 
     shouldComponentUpdate() {
-    	console.log('message-list => shouldComponentUpdate:', this.state);
+    	// console.log('message-list => shouldComponentUpdate:', this.state);
     	return true;
     }    
 

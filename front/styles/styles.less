@@ -64,6 +64,7 @@
 	margin-right: @marginRightLeft;
 }
 
+.logout,
 .messages-list-empty,
 .post-message-unregistered {
 	margin: 20px @marginRightLeft;
@@ -72,7 +73,13 @@
 }
 
 .login-form {
-	height: 200px;
+	min-height: 200px;
+	height: auto;
+}
+
+.registration-form {
+	min-height: 500;
+	height: auto;
 }
 
 .post-message-registered input[type='submit'] {

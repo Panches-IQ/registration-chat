@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+const MIN_LENGTH = 1;
+
 const Validate = (data) => {
 	
 	const errors = {};
@@ -7,8 +9,8 @@ const Validate = (data) => {
 	for (let i in data) {
 		if (i == 'errors' || i == 'password_confirm')
 			continue;
-		if (!data[i] || (data[i].length && data[i].length < 4))
-			errors[i] = i + ' must be at least 4 characters long...';
+		if (!data[i] || (data[i].length && data[i].length < MIN_LENGTH))
+			errors[i] = i + ` must be at least ${MIN_LENGTH} characters long...`;
 	}
 	
 	if (data.password_confirm !== undefined && data.password_confirm !== data.password)

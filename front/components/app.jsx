@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
+import createHistory from 'history/createBrowserHistory';
 
 // Components
 import NavBar from './navbar.jsx';
@@ -8,13 +8,14 @@ import Header from './header.jsx';
 import MessagesList from './messages-list.jsx';
 import Registration from './registration.jsx';
 import Login from './login.jsx';
+import Logout from './logout.jsx';
 import PostMessage from './post-message.jsx';
 
 // Controllers
 import dataStore from '../controllers/data-store';
 import dataActions from '../controllers/data-actions';
 
-const history = createBrowserHistory();
+const history = createHistory();
 
 const getStateFromFlux = function() {
 	return {
@@ -33,6 +34,7 @@ class App extends Component {
 
 		this._onChange = this._onChange.bind(this);
 		this._login = this._login.bind(this);
+		this._logout = this._logout.bind(this);
 	}
 
 	componentWillMount() {
@@ -59,10 +61,11 @@ class App extends Component {
 						<hr/>
 						<Header username={username} />
 						<Route exact path='/' render={props => (<MessagesList username={username} messages={messages} />)} />
-						<Route exact path='/register' render={props => (<Registration username={username} />)} />
-						<Route exact path='/login' render={props => (<Login username={username} login={this._login} />)} />
+						<Route exact path='/register' render={(props) => (<Registration username={username} />)} />
+						<Route exact path='/logout' render={(props) => (<Logout {...props} username={username} logout={this._logout} />)} />
+						<Route exact path='/login' render={(props) => (<Login {...props} username={username} login={this._login} />)} />
 						<hr />
-						<Route exact path='/' render={props => (<PostMessage username={username} />)} />
+						<Route exact path='/' render={(props) => (<PostMessage username={username} />)} />
 					</div>
 				</Router>
 			</div>
@@ -73,8 +76,12 @@ class App extends Component {
 		this.setState(getStateFromFlux());
 	}
 
-	_login(username, password) {
-		dataActions.login(username, password);
+	_logout(...args) {
+		dataActions.logout(...args);
+	}
+
+	_login(...args) {
+		dataActions.login(...args);
 	}
 }
 

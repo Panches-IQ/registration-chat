@@ -19,8 +19,12 @@ app.get('/', (req,res) => {
 });
 
 app.post('/login', (req, res) => {
-	console.log(req.body);
-	res.send(req.body);
+	const { username } = req.body;
+	res.send({ username });
+});
+
+app.post('/logout', (req, res) => {
+	res.send({ success:true });
 });
 
 // app.post('/', (req,res) => {

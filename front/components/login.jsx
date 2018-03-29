@@ -25,11 +25,11 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        console.log('login => componentDidMount:', this.props);
+        // console.log('login => componentDidMount:', this.props);
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('login => componentWillReceiveProps:', nextProps);
+        // console.log('login => componentWillReceiveProps:', nextProps);
     }
 
     render() {
@@ -71,7 +71,8 @@ class Login extends Component {
 
     login() {
         const { username, password } = this.state;
-        this.props.login(username, password);
+        const { history } = this.props;
+        this.props.login(username, password, history);
     }
 
     handleSubmit(e) {

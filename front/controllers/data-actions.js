@@ -29,7 +29,7 @@ const dataActions = {
     establishConnection() {
 
     },
-    login(username, password) {
+    login(username, password, history) {
         Dispatcher.dispatch({
             type: 'login-request'
         });
@@ -38,19 +38,35 @@ const dataActions = {
             .then(response => {
                 Dispatcher.dispatch({
                     type: 'login-success',
-                    username: response.username,
+                    username: response.data.username,
                     status: response.status
-                })
+                });
+                history.push('/');
             })
             .catch(err => {
-
+                Dispatcher.dispatch({
+                    type: 'login-error',
+                    error: err
+                });
             });
     },
     register() {
 
     },
-    logout() {
+    logout(username, history) {
+        history.push('/');
+        Dispatcher.dispatch({
+            type: 'logout-request'
+        });
+        api.logout(username)
+            .then(response => {
+                Dispatcher.dispatch({
+                    type: 'logout-success'
+                });
+            })
+            .catch(err => {
 
+            })
     }
 }
 

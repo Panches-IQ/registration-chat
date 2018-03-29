@@ -14,11 +14,11 @@ class PostMessage extends Component {
     }
 
     componentDidMount() {
-        console.log('post-message => componentDidMount:', this.props);
+        // console.log('post-message => componentDidMount:', this.props);
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('post-message => componentWillReceiveProps:', nextProps);
+        // console.log('post-message => componentWillReceiveProps:', nextProps);
     }
 
     render() {

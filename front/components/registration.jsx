@@ -27,11 +27,11 @@ class Registration extends Component {
 	}
 
 	componentDidMount() {
-        console.log('registration => componentDidMount:', this);
+        // console.log('registration => componentDidMount:', this);
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('registration => componentWillReceiveProps:', nextProps);
+        // console.log('registration => componentWillReceiveProps:', nextProps);
     }
 
     render() {

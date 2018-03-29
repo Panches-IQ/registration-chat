@@ -63,13 +63,31 @@ Dispatcher.register(function(action) {
             dataStore.emitChange();
             break;
         }
-        case 'login': {
+        case 'login-request': {
+            _is_loading = true;
+
+            dataStore.emitChange();
+            break;
+        }
+        case 'login-success': {
             _username = action.username;
 
             dataStore.emitChange();
             break;
         }
-        case 'logout': {
+        case 'login-error': {
+            _loading_error = action.error;
+
+            dataStore.emitChange();
+            break;
+        }
+        case 'logout-request': {
+            _is_loading = true;
+
+            dataStore.emitChange();
+            break;
+        }
+        case 'logout-success': {
             _username = null;
 
             dataStore.emitChange();
