@@ -29,7 +29,7 @@ const dataActions = {
     establishConnection() {
 
     },
-    login(username, password, history) {
+    login(username, password, cb) {
         Dispatcher.dispatch({
             type: 'login-request'
         });
@@ -41,7 +41,7 @@ const dataActions = {
                     username: response.data.username,
                     status: response.status
                 });
-                history.push('/');
+                cb({ status:200 });
             })
             .catch(err => {
                 Dispatcher.dispatch({
@@ -50,11 +50,25 @@ const dataActions = {
                 });
             });
     },
-    register() {
+    register(username, password, email, cb) {
+        Dispatcher.dispatch({
+            type:'register-request'
+        });
+        api.register(username, password, email)
+            .then(response => {
+                // check for data/status to prevent registration of the same logins
+                Dispatcher.dispatch({
+                    type: 'register-success',
+                    username: response.data.username
+                });
+                cb({ status:200 });
+            })
+            .catch(err => {
+
+            })
 
     },
-    logout(username, history) {
-        history.push('/');
+    logout(username, cb) {
         Dispatcher.dispatch({
             type: 'logout-request'
         });
@@ -63,6 +77,7 @@ const dataActions = {
                 Dispatcher.dispatch({
                     type: 'logout-success'
                 });
+                cb({ status:200 });
             })
             .catch(err => {
 

@@ -10,7 +10,8 @@ const getInitialState = () => {
         email: '',
         password: '',
         password_confirm: '',
-        errors: {}
+        errors: {},
+        success: false
     }
 }
 
@@ -26,16 +27,22 @@ class Registration extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	componentDidMount() {
-        // console.log('registration => componentDidMount:', this);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // console.log('registration => componentWillReceiveProps:', nextProps);
-    }
-
     render() {
-        const body = (
+
+    	const { success } = this.state;
+
+        const body = success 
+        	? (
+        		<div className='registered'>
+        			<div>
+        				You have succesfully resistered...
+        			</div>
+        			<div>
+        				Please use your login and password to enter the chat messenger...
+        			</div>
+        		</div>
+        	)
+        	: (
             <div className='from-group registration-form'>
                 <form onSubmit={this.handleSubmit} name='post'>
                     <CredentialInput 
@@ -90,11 +97,22 @@ class Registration extends Component {
     }
 
     register() {
-    	console.log('register')
+        const { username, password, email } = this.state;
+        const { history } = this.props;
+
+        const callback = (response) => {
+        	if (response.status === 200) {
+        		this.setState({ success:true });
+        		setTimeout(() => {history.push('/login')}, 3000);
+        	}
+        }
+
+        this.props.register(username, password, email, callback);
     }
 
     handleSubmit(e) {
         e.preventDefault();
+
 
         const errors = Validate(this.state);
 

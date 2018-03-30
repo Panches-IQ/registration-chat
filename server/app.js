@@ -27,6 +27,11 @@ app.post('/logout', (req, res) => {
 	res.send({ success:true });
 });
 
+app.post('/register', (req, res) => {
+    const { username, password, email } = req.body;
+    res.send({ success:true, username:username });
+});
+
 // app.post('/', (req,res) => {
 // 	res.json({reply:"post/"})
 // });

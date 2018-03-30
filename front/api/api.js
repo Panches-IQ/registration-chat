@@ -8,12 +8,17 @@ const api = {
 		return axios.get('/', { withCredentials:true });
 	},
 	login(username, password) {
-		const data = { password, username };
+		const data = { username, password };
 		
 		return axios.post('/login', data);
 	},
 	logout(username) {
 		return axios.post('/logout');
+	},
+	register(username, password, email) {
+		const data = { username, password, email };
+
+		return axios.post('/register', data);
 	},
 	createMessage(obj) {
 

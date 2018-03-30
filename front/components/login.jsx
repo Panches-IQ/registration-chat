@@ -8,7 +8,8 @@ const getInitialState = () => {
     return {
         username: '',
         password: '',
-        errors: {}
+        errors: {},
+        success: false
     }
 }
 
@@ -24,16 +25,22 @@ class Login extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentDidMount() {
-        // console.log('login => componentDidMount:', this.props);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // console.log('login => componentWillReceiveProps:', nextProps);
-    }
-
     render() {
-        const body = (
+
+        const { success } = this.state;
+
+        const body = success
+            ? (
+                <div className='login'>
+                    <div>
+                        You have succesfully logged in ...
+                    </div>
+                    <div>
+                        You'll be redirected to the main page in few seconds...
+                    </div>
+                </div>
+            )
+            : (
             <div className='from-group login-form'>
                 <form onSubmit={this.handleSubmit} name='post'>
                     <CredentialInput 
@@ -72,7 +79,15 @@ class Login extends Component {
     login() {
         const { username, password } = this.state;
         const { history } = this.props;
-        this.props.login(username, password, history);
+
+        const callback = (response) => {
+            if (response.status === 200) {
+                this.setState({ success:true });
+                setTimeout(() => {history.push('/')}, 2000);
+            }
+        }
+
+        this.props.login(username, password, callback);
     }
 
     handleSubmit(e) {

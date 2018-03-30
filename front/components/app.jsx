@@ -35,6 +35,7 @@ class App extends Component {
 		this._onChange = this._onChange.bind(this);
 		this._login = this._login.bind(this);
 		this._logout = this._logout.bind(this);
+		this._register = this._register.bind(this);
 	}
 
 	componentWillMount() {
@@ -61,7 +62,7 @@ class App extends Component {
 						<hr/>
 						<Header username={username} />
 						<Route exact path='/' render={props => (<MessagesList username={username} messages={messages} />)} />
-						<Route exact path='/register' render={(props) => (<Registration username={username} />)} />
+						<Route exact path='/register' render={(props) => (<Registration {...props} username={username} register={this._register} />)} />
 						<Route exact path='/logout' render={(props) => (<Logout {...props} username={username} logout={this._logout} />)} />
 						<Route exact path='/login' render={(props) => (<Login {...props} username={username} login={this._login} />)} />
 						<hr />
@@ -82,6 +83,10 @@ class App extends Component {
 
 	_login(...args) {
 		dataActions.login(...args);
+	}
+
+	_register(...args) {
+		dataActions.register(...args);
 	}
 }
 

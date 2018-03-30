@@ -1,16 +1,58 @@
 import React, { Component } from 'react';
 
-const Logout = (props) => {
+class Logout extends Component {
 
-	const { username, history } = props;
+    constructor(props) {
+        super(props);
 
-	setTimeout(() => {props.logout(username, history)}, 750);
+        this.state = {
+            success: true
+        }
 
-	return (
-		<div className='logout'>
-			Logout...
-		</div>
-	)
+        this.logout = this.logout.bind(this);
+
+        setTimeout(this.logout, 1000);
+    }
+
+    logout() {
+        const { username, history } = this.props;
+
+        const callback = (response) => {
+            if (response.status === 200) {
+                history.push('/');
+            } else {
+                this.setState({ success:false });
+                setTimeout(() => {history.push('/')}, 2000);
+            }
+
+        }
+
+        this.props.logout(username, callback);
+    }
+
+    render() {
+        const { username } = this.props;
+        const { success } = this.state;
+
+        const body = success
+            ? (
+                <div>
+                    Logout&nbsp;{username}...
+                </div>
+            )
+            : (
+                <div>
+                    Something gone wrong, please try again...
+                </div>
+            );
+
+        return (
+            <div className='logout'>
+                { body }
+            </div>
+        )
+    }
+	
 }
 
 export default Logout;

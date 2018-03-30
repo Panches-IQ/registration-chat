@@ -7,6 +7,8 @@ let _username = null;
 let _is_loading = false;
 let _loading_error = null;
 
+const { EV_CHANGE } = Constants;
+
 const formatMessage = (message) => {
     return {
         id: message.id,
@@ -30,13 +32,13 @@ const dataStore = Object.assign({}, EventEmitter.prototype, {
         return _is_loading;
     },
     emitChange() {
-        this.emit(Constants.EV_CHANGE);
+        this.emit(EV_CHANGE);
     },
     addChangeListener(cb) {
-        this.on(Constants.EV_CHANGE, cb);
+        this.on(EV_CHANGE, cb);
     },
     deleteChangeListener(cb) {
-        this.removeListener(Constants.EV_CHANGE, cb);
+        this.removeListener(EV_CHANGE, cb);
     }
 });
 

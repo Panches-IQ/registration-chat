@@ -7,7 +7,7 @@ const Validate = (data) => {
 	const errors = {};
 	
 	for (let i in data) {
-		if (i == 'errors' || i == 'password_confirm')
+		if (i == 'errors' || i == 'password_confirm' || i == 'success')
 			continue;
 		if (!data[i] || (data[i].length && data[i].length < MIN_LENGTH))
 			errors[i] = i + ` must be at least ${MIN_LENGTH} characters long...`;
