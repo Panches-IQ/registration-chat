@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const MIN_LENGTH = 1;
+const MIN_LENGTH = 4;
 
 const Validate = (data) => {
 	
