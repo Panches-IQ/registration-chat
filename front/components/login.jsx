@@ -29,6 +29,14 @@ class Login extends Component {
 
         const { success } = this.state;
 
+        const badCredentialsWarn = this.state.errors.credentials
+            ? (
+                <div className='bad-credentials-warn'>
+                    Bad password/login.. Please try again
+                </div>
+            )
+            : null;
+
         const body = success
             ? (
                 <div className='login'>
@@ -61,6 +69,7 @@ class Login extends Component {
                         onChange={this.onChange}
                         value={this.state.password}
                     />
+                    { badCredentialsWarn }
                     <input className='btn btn-outline-primary' type='submit' value='Login' />
                 </form>
             </div>
@@ -81,9 +90,12 @@ class Login extends Component {
         const { history } = this.props;
 
         const callback = (response) => {
-            if (response.status === 200) {
+            if (response.status) {
                 this.setState({ success:true });
                 setTimeout(() => {history.push('/')}, 2000);
+            } else {
+                const errors = { credentials:true };
+                this.setState({ errors });
             }
         }
 

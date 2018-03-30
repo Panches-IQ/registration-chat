@@ -7,35 +7,18 @@ class MessagesList extends Component {
 
 	constructor(props) {
 		super(props);
-		
-		this.state = {
-			updated: false,
-			messages: []
-		}
-		// console.log(props)
+
+		this.scrollToBottom = this.scrollToBottom.bind(this);
 	}
 
-	componentDidMount() {
-		// console.warn('message-list => componentDidMount:', this.props);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // console.error('message-list => componentWillReceiveProps:', nextProps);
-    }
-
-    shouldComponentUpdate() {
-    	// console.log('message-list => shouldComponentUpdate:', this.state);
-    	return true;
-    }    
-
 	render() {
-		var body = this.props.messages.length ? 
-			this.props.messages.map((message) => (
+		const body = this.props.messages.length 
+			? this.props.messages.map((message) => (
 				<Message
-					key={message.id}
-					text={message.text}
-					user={message.userId}
-					username={this.props.username}
+					key={ message.id }
+					text={ message.text }
+					creator={ message.creator }
+					username={ this.props.username }
 				>
 				</Message>
 			))
@@ -47,8 +30,25 @@ class MessagesList extends Component {
 		return (
 			<div className='messages-list-wrapper'>
 				{body}
+				<div 
+					style={{ float:"left", clear: "both" }}
+		            ref={ (el) => { this.messagesEnd = el; } }
+		        >
+		        </div>
 			</div>
 		);
+	}
+
+	scrollToBottom(behavior) {
+	  	this.messagesEnd.scrollIntoView({ behavior });
+	}
+
+	componentDidMount() {
+	  	this.scrollToBottom();
+	}
+
+	componentDidUpdate() {
+	  	this.scrollToBottom('smooth');
 	}
 }
 

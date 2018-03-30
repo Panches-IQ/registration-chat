@@ -6,7 +6,7 @@ const url = config.client.apiPrefix;
 const api = {
 
 	loadMessages() {
-		return axios.get('/', { withCredentials:true });
+		return axios.get('/messages', { withCredentials:true });
 	},
 
 	login(username, password) {
@@ -23,8 +23,8 @@ const api = {
 		return axios.post('/register', data);
 	},
 
-	createMessage(message, username) {
-		const data = { message, username };
+	createMessage(text, creator, date) {
+		const data = { text, creator, date };
 		return axios.post('/messages', data);
 	}
 

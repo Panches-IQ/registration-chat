@@ -20,7 +20,8 @@ const history = createHistory();
 
 const getStateFromFlux = function() {
 	return {
-		username: 'dataStore.getUsername()',
+		username: dataStore.getUsername(),
+		// username: 'Pavel',
 		isLoading: dataStore.isLoading(),
 		messages: dataStore.getMessages(),
 		error: dataStore.getLoadingError()

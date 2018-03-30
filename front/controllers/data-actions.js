@@ -7,7 +7,6 @@ const dataActions = {
         Dispatcher.dispatch({
             type: 'request'
         });
-
         api.loadMessages()
             .then(response => {
                 Dispatcher.dispatch({
@@ -23,11 +22,28 @@ const dataActions = {
                 })
             });
     },
-    createMessage(message, username) {
-        api.createMessage(message, username)
+    createMessage(text, creator) {
+
+        const date = Date.now();
+
+        api.createMessage(text, creator, date)
             .then(response => {
-                console.log(response);
+
+                const { id, published } = response.data;
+
+                Dispatcher.dispatch({
+                    type: 'new-message',
+                    new_message: {
+                        text: text,
+                        creator: creator,
+                        published: published,
+                        id: id
+                    }
+                });
             })
+            .catch(err => {
+
+            });
     },
     establishConnection() {
 
@@ -39,18 +55,30 @@ const dataActions = {
 
         api.login(username, password)
             .then(response => {
-                Dispatcher.dispatch({
-                    type: 'login-success',
-                    username: response.data.username,
-                    status: response.status
-                });
-                cb({ status:200 });
+
+                const { status, username } = response.data;
+                
+                if (status) {
+                    Dispatcher.dispatch({
+                        type: 'login-success',
+                        username: username
+                    });
+                    cb({ status:true });
+                } else {
+                    Dispatcher.dispatch({
+                        type: 'login-error',
+                        error: 'wrong credentials'
+                    });
+                    cb({ status:false });
+                }
+                
             })
             .catch(err => {
                 Dispatcher.dispatch({
                     type: 'login-error',
                     error: err
                 });
+                cb({ status:null });
             });
     },
     register(username, password, email, cb) {

@@ -11,8 +11,8 @@ const { EV_CHANGE } = Constants;
 
 const formatMessage = (message) => {
     return {
-        id: message.id,
-        userId: message.userId,
+        id: message.id || message._id,
+        creator: message.creator || message.username,
         text: message.text || message.body,
         date: message.date
     }
@@ -96,7 +96,7 @@ Dispatcher.register(function(action) {
             break;
         }
         case 'new-message': {
-            _messages.push(action.new_message);
+            _messages.push(formatMessage(action.new_message));
 
             dataStore.emitChange();
             break;
