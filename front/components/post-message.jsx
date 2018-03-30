@@ -13,16 +13,11 @@ class PostMessage extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentDidMount() {
-        // console.log('post-message => componentDidMount:', this.props);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // console.log('post-message => componentWillReceiveProps:', nextProps);
-    }
-
     render() {
-        const body = this.props.username 
+
+        const { username } = this.props;
+
+        const body = username 
             ? (
                 <div className='post-message-registered'>
                     <form onSubmit={this.handleSubmit} name='post'>
@@ -48,8 +43,12 @@ class PostMessage extends Component {
     }
 
     handleSubmit(e) {
-        this.setState({ message: '' });
         e.preventDefault();
+
+        const { message } = this.state;
+
+        this.props.postMessage(message);
+        this.setState({ message: '' });        
     }
 }
 

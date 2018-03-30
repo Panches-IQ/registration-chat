@@ -95,7 +95,7 @@ Dispatcher.register(function(action) {
             dataStore.emitChange();
             break;
         }
-        case 'new_message': {
+        case 'new-message': {
             _messages.push(action.new_message);
 
             dataStore.emitChange();

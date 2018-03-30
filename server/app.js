@@ -1,8 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const config = require('../utils/config.json');
 const cookieParser = require('cookie-parser');
+
+const config = require('../utils/config.json');
+
+// database utils
+const db = require('./database/db');
 
 const app = express();
 const port = config ? config.client.apiPort : 1337;
@@ -30,6 +34,10 @@ app.post('/logout', (req, res) => {
 app.post('/register', (req, res) => {
     const { username, password, email } = req.body;
     res.send({ success:true, username:username });
+});
+
+app.post('/messages', (req, res) => {
+    res.send({ success:true });
 });
 
 // app.post('/', (req,res) => {

@@ -1,11 +1,9 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
-
-const UserSchema = new Schema({
-    name       : { type: String },
-    login      : { type: String, required: true },
-    password   : { type: String },
+const UserSchema = new mongoose.Schema({
+    username   : { type: String, required: true },
+    email      : { type: String },
+    password   : { type: String, required: true },
     registered : { type: Date }
 });
 

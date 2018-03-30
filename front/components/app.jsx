@@ -10,6 +10,7 @@ import Registration from './registration.jsx';
 import Login from './login.jsx';
 import Logout from './logout.jsx';
 import PostMessage from './post-message.jsx';
+import UserInfo from './user-info.jsx';
 
 // Controllers
 import dataStore from '../controllers/data-store';
@@ -19,7 +20,7 @@ const history = createHistory();
 
 const getStateFromFlux = function() {
 	return {
-		username: dataStore.getUsername(),
+		username: 'dataStore.getUsername()',
 		isLoading: dataStore.isLoading(),
 		messages: dataStore.getMessages(),
 		error: dataStore.getLoadingError()
@@ -36,6 +37,7 @@ class App extends Component {
 		this._login = this._login.bind(this);
 		this._logout = this._logout.bind(this);
 		this._register = this._register.bind(this);
+		this._postMessage = this._postMessage.bind(this);
 	}
 
 	componentWillMount() {
@@ -65,8 +67,9 @@ class App extends Component {
 						<Route exact path='/register' render={(props) => (<Registration {...props} username={username} register={this._register} />)} />
 						<Route exact path='/logout' render={(props) => (<Logout {...props} username={username} logout={this._logout} />)} />
 						<Route exact path='/login' render={(props) => (<Login {...props} username={username} login={this._login} />)} />
+						<Route path='/userinfo' render={(props) => (<UserInfo {...props} username={username} />)} />
 						<hr />
-						<Route exact path='/' render={(props) => (<PostMessage username={username} />)} />
+						<Route exact path='/' render={(props) => (<PostMessage {...props} username={username} postMessage={this._postMessage} />)} />
 					</div>
 				</Router>
 			</div>
@@ -87,6 +90,13 @@ class App extends Component {
 
 	_register(...args) {
 		dataActions.register(...args);
+	}
+
+	_postMessage(message) {
+
+		const { username } = this.state;
+
+		dataActions.createMessage(message, username);
 	}
 }
 

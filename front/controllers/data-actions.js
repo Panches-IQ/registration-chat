@@ -23,8 +23,11 @@ const dataActions = {
                 })
             });
     },
-    createMessage() {
-
+    createMessage(message, username) {
+        api.createMessage(message, username)
+            .then(response => {
+                console.log(response);
+            })
     },
     establishConnection() {
 

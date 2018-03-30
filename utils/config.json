@@ -3,14 +3,14 @@
 		"apiPrefix":"127.0.0.1",
 		"apiPort":1337
 	},
-	"dbUsers":{
-		"name":"users"
+	"server":{
+
 	},
-	"dbMessages":{
-		"name":"messages"
-	},
-	"dbMain":{
+	"database":{
 		"host":"127.0.0.1",
-		"port":27017
+		"port":27017,
+		"name":"messagesapp",
+		"collectionUsers":"users",
+		"collectionMessages":"messages"
 	}
 }
