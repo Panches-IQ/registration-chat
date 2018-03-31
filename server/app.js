@@ -11,10 +11,24 @@ const db = require('./database/db');
 const app = express();
 const port = config ? config.client.apiPort : 1337;
 
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(cookieParser());
 app.use(cors({ origin: '*' }));
+
+// app.use((a,b,c) => {
+// 	console.log(a.headers);
+// 	console.log('****************');
+// 	return c();
+// });
+
+io.on('connection', socket => {
+	console.log('new listener connected...');
+	// socket.emit('chatmessage', {text:'PRUVET!!', creator:'Pavel', id:+Date.now(), date:+Date.now()})
+});
 
 // list all messages from database
 app.get('/messages', (req,res) => {
@@ -37,7 +51,7 @@ app.post('/login', (req, res) => {
     db.login(data)
         .then(data => {
             // success
-            console.log(data)
+            // console.log(data)
             if (data)
                 res.send({ status:'success', username:data.username });
             // not found
@@ -82,7 +96,8 @@ app.post('/messages', (req, res) => {
     }
     db.createMessage(data)
         .then(data => {
-            console.log(data);
+            // console.log(data);
+            io.emit('chatmessage', JSON.stringify(data));
             res.send({ success:true, id:data._id, published: date });
         })
         .catch(err => {
@@ -101,7 +116,7 @@ app.get('/*', (req, res) => {
 
 db.setUpConnection()
     .then((response) => {
-        app.listen(port, () => {
+        server.listen(port, () => {
 	       console.log("Server is running on port " + port);
         });
     })

@@ -55,7 +55,8 @@ Dispatcher.register(function(action) {
             _messages = action.messages.map( formatMessage );
             _loading_error = null;
             // _username = action.username; // ???
-
+// var t = new WebSocket('ws://127.0.0.1:1337/');
+// console.log(t)
             dataStore.emitChange();
             break;
         }

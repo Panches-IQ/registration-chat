@@ -1,6 +1,19 @@
 import api from '../api/api';
 import Constants from '../../utils/constants';
 import Dispatcher from '../dispatcher/dispatcher';
+import io from 'socket.io-client';
+
+const socket = io();
+
+socket.on('chatmessage', message => {
+    if (typeof message !== 'object')
+        message = JSON.parse(message);
+
+    Dispatcher.dispatch({
+        type: 'new-message',
+        new_message: message
+    })
+});
 
 const dataActions = {
     loadMessages() {
@@ -29,20 +42,21 @@ const dataActions = {
         api.createMessage(text, creator, date)
             .then(response => {
 
-                const { id, published } = response.data;
+                // const { id, published } = response.data;
 
-                Dispatcher.dispatch({
-                    type: 'new-message',
-                    new_message: {
-                        text: text,
-                        creator: creator,
-                        published: published,
-                        id: id
-                    }
-                });
+                // Dispatcher.dispatch({
+                //     type: 'new-message',
+                //     new_message: {
+                //         text: text,
+                //         creator: creator,
+                //         published: published,
+                //         id: id
+                //     }
+                // });
             })
             .catch(err => {
-
+                // some callbacks to flash that the message has not been send
+                console.log(err);
             });
     },
     establishConnection() {
