@@ -27,7 +27,6 @@ app.use(cors({ origin: '*' }));
 
 io.on('connection', socket => {
 	console.log('new listener connected...');
-	// socket.emit('chatmessage', {text:'PRUVET!!', creator:'Pavel', id:+Date.now(), date:+Date.now()})
 });
 
 // list all messages from database
@@ -103,12 +102,8 @@ app.post('/messages', (req, res) => {
         .catch(err => {
             console.log(err);
             res.send({ success:false });
-        })
+        });
 });
-
-// app.post('/', (req,res) => {
-// 	res.json({reply:"post/"})
-// });
 
 app.get('/*', (req, res) => {
     res.redirect('/');

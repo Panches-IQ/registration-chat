@@ -42,17 +42,6 @@ const dataActions = {
         api.createMessage(text, creator, date)
             .then(response => {
 
-                // const { id, published } = response.data;
-
-                // Dispatcher.dispatch({
-                //     type: 'new-message',
-                //     new_message: {
-                //         text: text,
-                //         creator: creator,
-                //         published: published,
-                //         id: id
-                //     }
-                // });
             })
             .catch(err => {
                 // some callbacks to flash that the message has not been send

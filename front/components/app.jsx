@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
-import io from 'socket.io-client';
 
 // Components
 import NavBar from './navbar.jsx';
