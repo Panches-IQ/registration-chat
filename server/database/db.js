@@ -20,11 +20,10 @@ function listUsers() {
 }
 
 function login(data) {
-    const { username, password } = data;
+    const { username } = data;
 
     return User.findOne({
-        username: username,
-        password: password
+        username: username
     });
 }
 

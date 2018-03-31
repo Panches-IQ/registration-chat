@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const bcrypt = require('bcrypt');
 
 const config = require('../utils/config.json');
 
@@ -18,6 +19,8 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(cookieParser());
 app.use(cors({ origin: '*' }));
+
+const saltRounds = 9;
 
 // app.use((a,b,c) => {
 // 	console.log(a.headers);
@@ -45,17 +48,23 @@ app.get('/messages', (req,res) => {
 app.post('/login', (req, res) => {
 	
     const { username, password } = req.body;
-    const data = { username, password };
+    const data = { username };
     
     db.login(data)
-        .then(data => {
-            // success
-            // console.log(data)
-            if (data)
-                res.send({ status:'success', username:data.username });
+        .then(data => {            
+            // found user
+            if (data) {
+                bcrypt.compare(password, data.password, function(err, result) {
+                    if (result) {
+                        res.send({ status:'success', username:data.username });
+                    } else {
+                        res.send({ status:false });        
+                    }
+                });                
             // not found
-            else
+            } else {
                 res.send({ status:false });
+            }
         })
         .catch(err => {
             // fails -> wrong credentials
@@ -72,16 +81,24 @@ app.post('/logout', (req, res) => {
 app.post('/register', (req, res) => {
     
     const { username, password, email } = req.body;
-    const data = { username, email, password, registered:Date.now() };
-    
-    db.createUser(data)
-        .then(data => {
-            res.send({ success:true, username:username });
-        })
-        .catch(err => {
-            console.log(err);
-            res.send({ success:false, error:'duplicate'});
-        });    
+
+    bcrypt.hash(password, saltRounds, function(err, hash) {
+        // Store hash in your password DB.
+        if (err || !hash) {
+            res.send({ success:false, error:'wrong hash'});
+        } else {
+            const data = { username, email, password:hash, registered:Date.now() };
+            db.createUser(data)
+                .then(data => {
+                    res.send({ success:true, username:username });
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.send({ success:false, error:'duplicate'});
+                }); 
+        }
+    });
+
 });
 
 // add new message to collection
