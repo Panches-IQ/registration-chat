@@ -44,23 +44,21 @@ const dataStore = Object.assign({}, EventEmitter.prototype, {
 
 Dispatcher.register(function(action) {
     switch (action.type) {
-        case 'request': {
+        case 'messages-request': {
             _is_loading = true;
 
             dataStore.emitChange();
             break;
         }
-        case 'success': {
+        case 'messages-success': {
             _is_loading = false;
             _messages = action.messages.map( formatMessage );
             _loading_error = null;
-            // _username = action.username; // ???
-// var t = new WebSocket('ws://127.0.0.1:1337/');
-// console.log(t)
+
             dataStore.emitChange();
             break;
         }
-        case 'error': {
+        case 'messages-error': {
             _loading_error = action.error;
 
             dataStore.emitChange();

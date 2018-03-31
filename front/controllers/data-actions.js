@@ -18,19 +18,19 @@ socket.on('chatmessage', message => {
 const dataActions = {
     loadMessages() {
         Dispatcher.dispatch({
-            type: 'request'
+            type: 'messages-request'
         });
         api.loadMessages()
             .then(response => {
                 Dispatcher.dispatch({
-                    type: 'success',
+                    type: 'messages-success',
                     messages: response.data,
                     status: response.status
                 })
             })
             .catch(err => {
                 Dispatcher.dispatch({
-                    type: 'error',
+                    type: 'messages-error',
                     error: err
                 })
             });
