@@ -22,11 +22,11 @@ app.use(cors({ origin: '*' }));
 
 const saltRounds = 9;
 
-// app.use((a,b,c) => {
-// 	console.log(a.headers);
-// 	console.log('****************');
-// 	return c();
-// });
+app.use((a,b,c) => {
+	console.log(a.cookies);
+	console.log('****************');
+	return c();
+});
 
 io.on('connection', socket => {
 	console.log('new listener connected...');

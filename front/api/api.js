@@ -11,7 +11,7 @@ const api = {
 
 	login(username, password) {
 		const data = { username, password };		
-		return axios.post('/login', data);
+		return axios.post('/login', data, { withCredentials:true });
 	},
 
 	logout(username) {
