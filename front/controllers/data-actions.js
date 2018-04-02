@@ -22,9 +22,13 @@ const dataActions = {
         });
         api.loadMessages()
             .then(response => {
+
+                const { messages, username } = response.data;
+
                 Dispatcher.dispatch({
                     type: 'messages-success',
-                    messages: response.data,
+                    messages: messages,
+                    username: username,
                     status: response.status
                 })
             })

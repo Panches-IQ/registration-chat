@@ -22,11 +22,10 @@ app.use(cors({ origin: '*' }));
 
 const saltRounds = 9;
 
-app.use((a,b,c) => {
-	console.log(a.cookies);
-	console.log('****************');
-	return c();
-});
+// app.use((a,b,c) => {
+// 	console.log(a.cookies);
+// 	return c();
+// });
 
 io.on('connection', socket => {
 	console.log('new listener connected...');
@@ -35,9 +34,11 @@ io.on('connection', socket => {
 // list all messages from database
 app.get('/messages', (req,res) => {
 
+    const { username } = req.cookies;
+
     db.listMessages()
-        .then(data => {
-            res.send(data);
+        .then(messages => {
+            res.send({ messages, username });
         })
 	    .catch(err => {
 
@@ -56,9 +57,11 @@ app.post('/login', (req, res) => {
             if (data) {
                 bcrypt.compare(password, data.password, function(err, result) {
                     if (result) {
+                        // set cookie
+                        res.cookie('username', String(username), { expires: new Date( Date.now() + 1000*60*60*24 ) });
                         res.send({ status:'success', username:data.username });
                     } else {
-                        res.send({ status:false });        
+                        res.send({ status:false });
                     }
                 });                
             // not found
@@ -74,7 +77,11 @@ app.post('/login', (req, res) => {
 
 app.post('/logout', (req, res) => {
     // ends session
-	res.send({ success:true });
+    // delete cookie username
+
+    res.cookie('username', '', { expires: new Date(0) });
+	
+    res.send({ success:true });
 });
 
 // add new user to collection

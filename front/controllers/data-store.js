@@ -54,6 +54,7 @@ Dispatcher.register(function(action) {
             _is_loading = false;
             _messages = action.messages.map( formatMessage );
             _loading_error = null;
+            _username = action.username || null;
 
             dataStore.emitChange();
             break;
