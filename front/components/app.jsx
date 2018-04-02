@@ -96,8 +96,9 @@ class App extends Component {
 	_postMessage(message) {
 
 		const { username } = this.state;
-
-		dataActions.createMessage(message, username);
+		console.log(message)
+		if (message)
+			dataActions.createMessage(message, username);
 	}
 }
 
